@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>NYer cartoon shuffler</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!--<link rel="stylesheet" type="text/css" href="roman.css">-->
+
+<style>
+	body {
+		text-align: center;
+		font-family: arial;
+		background: black;
+		color: white;
+	}
+	.image {
+		width:100%;
+		margin: auto;
+	}
+	button {
+		text-align: center;
+		font-weight: bold;
+		color: black;
+		background: white;
+		border-radius: 3px;
+		padding: 10px;
+		cursor: pointer;
+		margin: 10px;
+		border-color: red;
+	}
+	img {
+		width: 450px;
+	}
+	input{
+		width: 300px;
+		padding: 5px;
+	}
+</style>
+
+</head>
+
+<body>
+<h1>Random Captionless Cartoon</h1>
+<p> Remember 2015, our year of captioning...</p>
+
+<div class = "image"></div>
+<input type='text' placeholder="You can type a caption here. But it won't do anything.">
+<button>Get a new cartoon</button>
+
+
+<script>
+dateList = ['http://www.newyorker.com/wp-content/uploads/2016/01/160104_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/12/151228_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/12/151221_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/12/151214_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/12/151207_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/11/151130_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/11/151123_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/11/151116_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/11/151109_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/11/151102_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/10/151026_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/10/151019_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/10/151012_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/10/151005_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/09/150928_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/09/150921_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/09/150914_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/09/150907_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/08/150831_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/08/150824_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/08/150817_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/08/150810_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/08/150803_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/07/150727_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/07/150720_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/07/150713_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/07/150706_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/06/150629_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/06/150622_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/06/150615_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/06/150608_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/06/150601_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/05/150525_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/05/150518_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/05/150511_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/05/150504_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/04/150427_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/04/150420_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/04/150413_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/04/150406_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/03/150330_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/03/150323_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/03/150316_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/03/150309_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/03/150302_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/02/150223_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/02/150216_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/02/150209_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/02/150202_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/01/150126_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/01/150119_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/01/150112_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2015/01/150105_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2014/12/141229_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2014/12/141222_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2014/12/141215_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2014/12/141208_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2014/12/141201_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2014/11/141124_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2014/11/141117_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2014/11/141110_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2014/11/141103_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2014/10/141027_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2014/10/141020_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2014/10/141013_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2014/10/141006_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2014/09/140929_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2014/09/140922_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2014/09/140915_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2014/09/140908_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2014/09/140901_contest-690.jpg', 'http://www.newyorker.com/wp-content/uploads/2014/08/140825_contest-690.jpg']
+
+var generateCartoon = function() {
+for (a=0; a<dateList.length; a++) {
+	console.log(dateList[a]);
+}
+
+function getRandomIntInclusive(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+	randomCartoonNum = getRandomIntInclusive(0,dateList.length)
+	var randomCartoon = dateList[randomCartoonNum]
+
+
+	console.log(randomCartoon)
+
+	$('.image').html('<img src="' + randomCartoon + '" onerror="generateCartoon()" >' );
+	}
+	generateCartoon();
+
+	$('button').click(function() {
+		generateCartoon();
+	});
+
+</script>
+
+
+</body>
+
+</html>
+
+
